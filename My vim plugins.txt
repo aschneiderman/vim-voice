@@ -1,0 +1,2 @@
+# Sprinkles:  easy to read color scheme
+git clone https://github.com/alexjgriffin/sprinkles
