@@ -1,0 +1,20 @@
+GETTING SET UP
+
+I.  Gvim
+
+------------------------------------------------------------------------------------------------------------------------------
+II. Vocola Gvim Commands
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
+III.  ConEmu
+
+The basic command line for Windows isn't very voice friendly. So instead I use ConEmu. To set it up:
+1) Download it at:
+http://conemu.github.io/
+
+2) Copy ConEmu.xml to the directory that contains ConEmu (usually C:\ ConEmu)
+
+3) Send a shortcut of ConEmu.exe to the desktop and rename it:
+Command Line
