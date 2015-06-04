@@ -74,3 +74,13 @@ Grab Everything = {Alt+e} s  {Enter} Wait(100) {Alt+e} c {Enter} Wait(100) {Alt+
 
 
 
+(Do | Edit) Ultisnips = {Esc} ':UltiSnipsEdit' {Enter};
+New Snippet = {Esc} A {Enter}{Enter} 'endsnippet' {Up} 'snippet ';
+(Next='j' | Last='k') Stop = {Ctrl+$1};
+
+(D3 = 'd3_template' | Code = 'D3_code_wrapper') Snippet = {Esc} i $1 {Tab};
+
+
+# ---Things to do
+# delete several lines
+# change the configuration file
