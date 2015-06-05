@@ -1,4 +1,4 @@
-# Voice commands for gvim (test)
+# Voice commands for gvim
 
 include folders.vch;
 include numbers.vch;
@@ -8,9 +8,9 @@ include pandas.vch;
 	| Québec = q | Romeo = r | Sierra = s | tango = t three spaces | uniform = u | Victor = v | whiskey = w 
 	| 'x-ray' = x | Yankee = y | Zulu = z);
 <delimiters> := (Quotes = '"' | 'Single Quotes' = "'" | 'Double Quotes' = '"' | Parentheses = '('  
-		| Brackets = '[' | 'Curly Braces' = '{' | Braces = '{' );
+		| Brackets = '[' | 'Curly Braces' = '{' | Braces = '{' | HTML = '<' | Tags = '<');
 
-
+Project Sandwich = {Esc}  ':e C:\GitHub\d3_sandwich\sandwiches\Abstract_Map' {Enter}  Wait(100) {Down_9};
 # --- File Management ---------------
 Open Document = {Alt+f} o;
 List Files = {Esc}  ':bro ol' {Enter};
@@ -26,6 +26,10 @@ Search [Directory] <letters> = '/^' $1;
 			# :Sex = directory of current file (:Vex for vertical split)
 			#   :sp. = Split horizontally on current directory (:vsp. For vertical)
 			# % = new file
+
+# Command for most recent files/files?
+# Do some research online
+
 
 Save Document = {Esc}  Wait(100) ':w' {Enter};
 Save As = {Alt+f} a;
@@ -73,14 +77,30 @@ Grab Everything = {Alt+e} s  {Enter} Wait(100) {Alt+e} c {Enter} Wait(100) {Alt+
 
 
 
+1..20 Spaces = Repeat($1, ' ');
 
-(Do | Edit) Ultisnips = {Esc} ':UltiSnipsEdit' {Enter};
-New Snippet = {Esc} A {Enter}{Enter} 'endsnippet' {Up} 'snippet ';
-(Next='j' | Last='k') Stop = {Ctrl+$1};
 
-(D3 = 'd3_template' | Code = 'D3_code_wrapper') Snippet = {Esc} i $1 {Tab};
+Do Ultisnips = {Esc} ':UltiSnipsEdit'{Enter};
+
+
+(Next = 'j' | Last = 'k') Tag = {Ctrl+$1};
+Start Snippet= {Esc} i 'snippet  {Enter} {Enter}endsnippet' {Esc} {Up_2} A;
+Start (
+	D3 = 'd3_template' | Code = 'D3_code_wrapper'
+| 	form | 'form text'  | 'form button' | 'form select'
+|	href
+) = {Esc} i $1 {Tab};
+
+
+
+Delete Line = 'dd';
+Delete <numbers> Lines = $1 'dd';
+
+# Commands for command line mode
+Yank That = 'y';
+
+
 
 
 # ---Things to do
-# delete several lines
 # change the configuration file

@@ -1,0 +1,93 @@
+snippet  form
+<form class="form-inline">
+$1
+</form>
+endsnippet
+
+snippet  "form text"
+ <div class="form-group">
+    <label for="$2">$1</label>
+    <input type="text" class="form-control" id="$2" placeholder="">
+ </div>
+endsnippet
+
+snippet   "form button"
+  <button type="submit" class="btn btn-default">$1</button>
+endsnippet
+
+snippet  "form select"
+ <div class="form-group">
+    <label for="$1">$2</label>
+    <select class="form-control" id="$1">
+</div>
+</select> 
+endsnippet
+
+snippet  option
+  <option>$1</option>
+endsnippet
+
+snippet href
+<a href="$1"${2: class="${3:link}"}>
+    $0
+</a>
+endsnippet
+
+
+snippet D3_code_wrapper
+<p id="$1"></p>
+<script type="text/javascript">
+	
+//Create SVG element
+var svg = d3.select("#$1")
+				.append("svg")
+				.attr("width", 500)
+				.attr("height", 50);
+			
+ $0
+
+</script>
+endsnippet
+
+snippet d3_template
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/stylesheet.css">
+<script src="http://d3js.org/d3.v3.min.js"></script> 
+<title>D3-snacks: $1</title>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+<header class="inner">
+<a id="forkme_banner" href="https://github.com/aschneiderman/d3-snacks">View on GitHub</a>
+<h1 id="project_title">D3-snacks</h1>
+<h2 id="project_tagline">Little snacks of D3 I&#39;m using as a cookbook as I learn  to cook with D3</h2>
+</header>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+<section id="main_content" class="inner">
+<h2>$1</h2>
+
+$0
+<h4>Heading</h4>
+
+</section>
+</div>
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+<footer class="inner">
+<p class="copyright">D3-snacks maintained by <a href="https://github.com/aschneiderman">aschneiderman</a></p>
+<p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer>
+</div>
+</body>
+</html>
+
+endsnippet
