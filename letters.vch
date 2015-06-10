@@ -1,0 +1,6 @@
+#Letters: the alphabet using the international Maritime terms
+
+<letters> := (alpha = a | bravo = b | Charlie = c | Delta = d | echo = e | foxtrot = f | golf = g | hotel = h 
+	| India = i | Juliet = j  | kilo = k | Lima = l | Mike = m | November = n | Oscar = o | Poppa = p 
+	| Québec = q | Romeo = r | Sierra = s | tango = t three spaces | uniform = u | Victor = v | whiskey = w 
+	| 'x-ray' = x | Yankee = y | Zulu = z);

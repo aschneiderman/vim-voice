@@ -2,27 +2,23 @@
 
 include folders.vch;
 include numbers.vch;
+include letters.vch;
 include pandas.vch;
-<letters> := (alpha = a | bravo = b | Charlie = c | Delta = d | echo = e | foxtrot = f | golf = g | hotel = h 
-	| India = i | Juliet = j  | kilo = k | Lima = l | Mike = m | November = n | Oscar = o | Poppa = p 
-	| Québec = q | Romeo = r | Sierra = s | tango = t three spaces | uniform = u | Victor = v | whiskey = w 
-	| 'x-ray' = x | Yankee = y | Zulu = z);
+
+Edit [My] Configuration = ':e $'  'MYVIMRC' {Enter};
+
 <delimiters> := (Quotes = '"' | 'Single Quotes' = "'" | 'Double Quotes' = '"' | Parentheses = '('  
 		| Brackets = '[' | 'Curly Braces' = '{' | Braces = '{' | HTML = '<' | Tags = '<');
 
-Project Sandwich = {Esc}  ':e C:\GitHub\d3_sandwich\sandwiches\Dendrogram' {Enter}  Wait(100) {Down_9};
 # --- File Management ---------------
 Open Document = {Alt+f} o;
 List Files = {Esc}  ':bro ol' {Enter};
-Latest File = {Esc}  ':bro ol' {Enter} Wait(100) 1 {Enter};
-
 File <numbers> = $1  {Enter};
-Project <folder> =  {Esc} ':e ' $1 {Enter} Wait(100) {Down_9};
-Project Current   = {Esc} ':e .' {Enter} Wait(100) {Down_9};
-Get (	 'Home Folders' = 'C:\Users\Anders\Documents\Voice\folders.vch' 
-	) =  {Esc}':e ' $1 {Enter} Wait(100) {Down_9};
-Show (Projects | Folders) = {Esc}':e C:\Users\Anders\Documents\Voice\folders.vch'  {Enter} Wait(100) {Down_9};
-Edit [My] Configuration = ':e $'  'MYVIMRC' {Enter};
+Latest File = {Esc}  ':bro ol' {Enter} 1{Enter};
+
+Show (Projects | Folders) = {Esc}':e C:\Voice\folders.vch'  {Enter} Wait(100) {Down_9};
+[Open] Project <folder> =  {Esc} ':e ' $1 {Enter} Wait(100) {Down_9};
+[Open] Current Project = {Esc} ':e .' {Enter} Wait(100) {Down_9};
 Up Directory = '-';
 Search [Directory] <letters> = '/^' $1;
 # :Sex = directory of current file 
@@ -30,6 +26,7 @@ Search [Directory] <letters> = '/^' $1;
 #   :sp. = Split horizontally on current directory (:vsp. For vertical)
 # % = new file
 
+(List Buffers = 'ls' | Buffer List = 'ls' | 'Next Buffer' = 'bn' | 'Last Buffer' = 'bp') = ':' $1  {Enter};
 
 
 Save Document = {Esc}  Wait(100) ':w' {Enter};
@@ -55,11 +52,9 @@ Line 1..100 = {Esc} ':' $1  {Enter};
 
 
 # --- Basic Editing ---------------
-(Do | Go) Insert = i;
-(Do | Go) Escape = {Esc};
-Go Append = A;
+(Do | Go) (Insert = 'i' | Append = 'A' | Escape = '{Esc}') = $2;
+(Insert = 'i' | Escape = '{Esc}') = $1;
 Nexta = {Esc} A {Enter};
-			# commands for changing
 
 (Do Again | Repeat That) = '.';
 (Undo | Undo That) = {Esc} u;
@@ -71,6 +66,9 @@ Redo = {Esc} {Ctrl+r};
 Dee Dee = 'dd';
 Cut to End of Line = 'd$';
 Cut to End of Word = 'de';
+
+('Go Visual' | Mark | 'Visual Mode') = V;
+('Delete That' = 'd' | 'Copy That' = 'y' | 'Yank That' = 'y' | 'Paste That' = 'p' | 'Change That' = 'c') = $1;
 
 (Delete= 'd' | Change = 'c') between <delimiters> = $1 i $2;
 (Delete= 'd' | Change = 'c') (Next = '/' | Last = '?') <delimiters> = {Esc} $2 $3 {Enter} $1 i $3;
@@ -101,7 +99,7 @@ Start (
 	D3 = 'd3_template' | Code = 'D3_code_wrapper'
 | 	form | 'form text'  | 'form button' | 'form select'
 |	href
-) = {Esc} i $1 {Tab};
+) = {Esc} i $1  Wait(100)  {Tab};
 
 
 
