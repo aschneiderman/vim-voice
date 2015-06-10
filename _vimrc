@@ -1,4 +1,4 @@
-" Of course
+" Don't use vi default settings (i.e., "compatible")
 set nocompatible
 
 
@@ -22,6 +22,9 @@ set backspace=indent,eol,start
 " Switch syntax highlighting on
 syntax on
  
+"Make it easier to work with "hidden" buffers (ii.e., buffers that have unsaved changes and are not currently loaded in a window)
+set hidden
+
 " Enable file type detection and do language-dependent indenting.
 filetype plugin indent on
  
@@ -31,7 +34,11 @@ set number
 " Allow hidden buffers, don't limit to 1 file per window/split
 set hidden
 
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 
 filetype off                  " required
+
+
 
