@@ -68,7 +68,13 @@ Cut to End of Line = 'd$';
 Cut to End of Word = 'de';
 
 ('Go Visual' | Mark | 'Visual Mode') = V;
-('Delete That' = 'd' | 'Copy That' = 'y' | 'Yank That' = 'y' | 'Paste That' = 'p' | 'Change That' = 'c') = $1;
+('Delete That' = 'd' |  'Yank That' = 'y' | 'Paste That' = 'p' | 'Change That' = 'c') = $1;
+Copy That = '"*y';
+Copy Line = {Esc} V Wait(100)  '"*y';
+Select Line = {Esc} V;
+
+do test = {Esc} i  Wait(100) "strawberry";
+
 
 (Delete= 'd' | Change = 'c') between <delimiters> = $1 i $2;
 (Delete= 'd' | Change = 'c') (Next = '/' | Last = '?') <delimiters> = {Esc} $2 $3 {Enter} $1 i $3;
@@ -78,7 +84,6 @@ Cut to End of Word = 'de';
 
 
 
-Strawberry test = 'vi<';
 
 Paste That = {Alt+e} p;
 Select All = {Alt+e}  s {Enter};
@@ -106,9 +111,22 @@ Start (
 Delete Line = 'dd';
 Delete <numbers> Lines = $1 'dd';
 
-# Commands for command line mode
-Yank That = 'y';
 
+
+
+# --- HTML and Bootstrap commands (until I'm sure I can get Ultisnips to work) ------------
+Next One = {Esc} A;
+Start Div (id | class) = '<div ' $1 '= "">' Wait(100) {Left_2};
+Stop Div = '</div>' {Enter};
+Start Columns = {Esc} i  Wait(100) '<div class="container">{Enter}<div class="row">{Enter}'
+		 {Enter} '</div>' {Enter}  '</div>'  {Esc} {Up_3}   Wait(100) A;
+Start Column 1..12 = {Esc} a '<div class="col-md-' $1 '">' {Enter} '</div>'{Enter}  {Esc} {Up_2} Wait(100) A;
+
+# Paste Image = {Esc} a' <img align=right hspace="7" width="200" src="' {Ctrl+v} '" />';
+Paste Image = {Esc} a ' <img align=right hspace="7"  src="' {Esc} p a '" />';
+
+###  NOTE: need to add the join command.
+#    Try J
 
 
 
