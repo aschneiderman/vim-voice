@@ -8,7 +8,10 @@ include pandas.vch;
 Edit [My] Configuration = ':e $'  'MYVIMRC' {Enter};
 
 <delimiters> := (Quotes = '"' | 'Single Quotes' = "'" | 'Double Quotes' = '"' | Parentheses = '('  
-		| Brackets = '[' | 'Curly Braces' = '{' | Braces = '{' | HTML = '<' | Tags = '<');
+		| Brackets = '[' | 'Curly Braces' = '{' | Braces = '{'
+		| HTML = '<' | Tags = '<' | 'Close HTML' = '>' | 'Close Tag' = '>'	# NOTE: only works with commands I created
+		| 'Equal Sign' = '='
+);
 
 # --- File Management ---------------
 Open Document = {Alt+f} o;
@@ -26,7 +29,9 @@ Search [Directory] <letters> = '/^' $1;
 #   :sp. = Split horizontally on current directory (:vsp. For vertical)
 # % = new file
 
-(List Buffers = 'ls' | Buffer List = 'ls' | 'Next Buffer' = 'bn' | 'Last Buffer' = 'bp') = ':' $1  {Enter};
+(List Buffers = 'ls' | Buffer List = 'ls' | 'Next Buffer' = 'bn' | 'Last Buffer' = 'bp' | 'Close Buffer' = 'bd'
+	| 'Next Window' = 'bn' | 'Last Window' = 'bp' | 'Close Window' = 'bd') 
+	= {Esc}':' $1  {Enter};
 
 
 Save Document = {Esc}  Wait(100) ':w' {Enter};
@@ -47,6 +52,9 @@ Enda = {Esc}  '$';
 Fine Text <letters> = {Esc} f $1;
 Find Back <letters> = {Esc} F $1;
 Fine Number 1..9 = {Esc} '/' $1 {Enter};
+Fine <delimiters> = {Esc} '/' $1 {Enter};
+Insert (Before = 'i' | After = 'a') <delimiters> = {Esc} '/' $2 {Enter} Wait(100) $1;
+
 Next Fine = n;
 Line 1..100 = {Esc} ':' $1  {Enter};
 

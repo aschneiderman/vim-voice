@@ -1,2 +1,15 @@
+# To install my plug-ins:
+#    - Open a Git shell
+#    - cd to vimfiles\bundle
+#    - Run the following commands to download my plug-ins
+
+
+
 # Sprinkles:  easy to read color scheme
 git clone https://github.com/alexjgriffin/sprinkles
+
+
+# vim-session: for making session management easier
+git clone http://github.com/xolox/vim-session
+git clone http://github.com/xolox/vim-misc
+
