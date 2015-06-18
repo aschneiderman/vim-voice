@@ -39,6 +39,8 @@ Save As = {Alt+f} a;
 Go (Quit = 'quit' | Close = 'close' | 'Close without saving' = 'close!'  | Set = 'set') = ':' $1 {Enter};
 [Go] Quit without Saving = {Esc}  Wait(100) ':quit!' {Enter};
 
+Save and Reload = {Esc}  Wait(100) ':w' {Enter} Wait(100)  SendSystemKeys({Alt+Tab}) Wait(100) {Alt+r};
+
 
 # --- Basic Navigation ---------------
 <numbers> (Up = 'k' | Down = 'j' | Right = 'l' | Left = 'h') = $1 $2;
@@ -49,13 +51,14 @@ Enda = {Esc}  '$';
 (Move Forward | Move Right | Go Forward) <numbers> (words = 'w' |  blocks = '}') = $2 $3;
 (Move Forward | Move Right | Go Forward) <numbers> (end | enda) words = $2 'e';
 (Move Back | Move Left | Go Back) <numbers> (words = 'b' | blocks = '{') = $2 $3;
-Fine Text <letters> = {Esc} f $1;
+Fine (Text | Alpha) <letters> = {Esc} f $2;
 Find Back <letters> = {Esc} F $1;
 Fine Number 1..9 = {Esc} '/' $1 {Enter};
+Go (Search | Find) = {Esc} '/\c';         # \c = case insensitive
 Fine <delimiters> = {Esc} '/' $1 {Enter};
 Insert (Before = 'i' | After = 'a') <delimiters> = {Esc} '/' $2 {Enter} Wait(100) $1;
 
-Next Fine = n;
+(Find Again | Next Fine | Next Find) = n;
 Line 1..100 = {Esc} ':' $1  {Enter};
 
 
@@ -63,6 +66,7 @@ Line 1..100 = {Esc} ':' $1  {Enter};
 (Do | Go) (Insert = 'i' | Append = 'A' | Escape = '{Esc}') = $2;
 (Insert = 'i' | Escape = '{Esc}') = $1;
 Nexta = {Esc} A {Enter};
+Enda Insert = {Esc} A;
 
 (Do Again | Repeat That) = '.';
 (Undo | Undo That) = {Esc} u;
@@ -76,7 +80,8 @@ Cut to End of Line = 'd$';
 Cut to End of Word = 'de';
 
 ('Go Visual' | Mark | 'Visual Mode') = V;
-('Delete That' = 'd' |  'Yank That' = 'y' | 'Paste That' = 'p' | 'Change That' = 'c') = $1;
+('Delete That' = 'd' |  'Yank That' = 'y' | 'Paste' = 'p' | 'Change That' = 'c' | 'Join That' = 'J') = $1;
+Paste That = {Esc} Wait(100) '"+gP';
 Copy That = '"*y';
 Copy Line = {Esc} V Wait(100)  '"*y';
 Select Line = {Esc} V;
@@ -93,7 +98,6 @@ do test = {Esc} i  Wait(100) "strawberry";
 
 
 
-Paste That = {Alt+e} p;
 Select All = {Alt+e}  s {Enter};
 Grab Everything = {Alt+e} s  {Enter} Wait(100) {Alt+e} c {Enter} Wait(100) {Alt+Tab};
 
@@ -111,7 +115,6 @@ Start Snippet= {Esc} i 'snippet  {Enter} {Enter}endsnippet' {Esc} {Up_2} A;
 Start (
 	D3 = 'd3_template' | Code = 'D3_code_wrapper'
 | 	form | 'form text'  | 'form button' | 'form select'
-|	href
 ) = {Esc} i $1  Wait(100)  {Tab};
 
 
@@ -124,6 +127,7 @@ Delete <numbers> Lines = $1 'dd';
 
 # --- HTML and Bootstrap commands (until I'm sure I can get Ultisnips to work) ------------
 Next One = {Esc} A;
+Start (Heading | Header) 1..4 = '<h' $2 '></h' $2 '>'   Wait(100) {Left_5};
 Start Div (id | class) = '<div ' $1 '= "">' Wait(100) {Left_2};
 Stop Div = '</div>' {Enter};
 Start Columns = {Esc} i  Wait(100) '<div class="container">{Enter}<div class="row">{Enter}'
@@ -133,22 +137,25 @@ Start Column 1..12 = {Esc} a '<div class="col-md-' $1 '">' {Enter} '</div>'{Ente
 # Paste Image = {Esc} a' <img align=right hspace="7" width="200" src="' {Ctrl+v} '" />';
 Paste Image = {Esc} a ' <img align=right hspace="7"  src="' {Esc} p a '" />';
 
-###  NOTE: need to add the join command.
-#    Try J
 
 
 
-# ---Things to do
-# change the configuration file
 
+# --- COMMANDS TO ADD ------------------------
 
-# Commands to add:
+# Using bookmarks or whatever they are called – e.g., if I accidentally do the wrong thing and end up on the wrong line,
 # g;  - last place I was where I made a change
 # Ctrl-o  - If I jump to a place, copy a line, I can snap back 
+
+# copying sets of lines, moving sets of lines
 # :9yank - copy line 9
 # :9t16 - copy line 9 to line 16
 # :9.  - copy line 9 to current position 
 
+
+
+# For adding quotes, HTML tags, etc. to text that's already there:
+# http://stackoverflow.com/questions/10305952/vim-enclose-word-in-tag
 
 # Commands I'm not sure about
 # H,M,L: top, middle, and bottom of screen
