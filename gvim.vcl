@@ -9,7 +9,7 @@ Edit [My] Configuration = ':e $'  'MYVIMRC' {Enter};
 
 <delimiters> := (Quotes = '"' | 'Single Quotes' = "'" | 'Double Quotes' = '"' | Parentheses = '('  
 		| Brackets = '[' | 'Curly Braces' = '{' | Braces = '{'
-		| HTML = '<' | Tags = '<' | 'Close HTML' = '>' | 'Close Tag' = '>'	# NOTE: only works with commands I created
+		| HTML = '<' | 'Close HTML' = '>' | 'Close Tag' = '>'	# NOTE: only works with commands I created
 		| 'Equal Sign' = '='
 );
 
@@ -57,6 +57,9 @@ Fine Number 1..9 = {Esc} '/' $1 {Enter};
 Go (Search | Find) = {Esc} '/\c';         # \c = case insensitive
 Fine <delimiters> = {Esc} '/' $1 {Enter};
 Insert (Before = 'i' | After = 'a') <delimiters> = {Esc} '/' $2 {Enter} Wait(100) $1;
+Fine Tag = {Esc} '/' '<' {Enter};
+Insert (Before = 'i' | After = 'a') tag = {Esc} '/' '<' {Enter} Wait(100) $1;
+
 
 (Find Again | Next Fine | Next Find) = n;
 Line 1..100 = {Esc} ':' $1  {Enter};
@@ -88,12 +91,12 @@ Select Line = {Esc} V;
 
 do test = {Esc} i  Wait(100) "strawberry";
 
-
+(Delete= 'd' | Change = 'c') Between Tags = $1 i t;
+(Delete= 'd' | Change = 'c') (Next = '/' | Last = '?') Tag = {Esc} $2 '>' {Enter} $1 i t;
 (Delete= 'd' | Change = 'c') between <delimiters> = $1 i $2;
 (Delete= 'd' | Change = 'c') (Next = '/' | Last = '?') <delimiters> = {Esc} $2 $3 {Enter} $1 i $3;
-(Delete= 'd' | Change = 'c') (Next = '/' | Last = '?') 
-	(Heading = '<h' | Header = '<h' | Paragraph = '<p') 
-	= {Esc} $2 '\c' $3 {Enter} $1 i t;
+(Delete= 'd' | Change = 'c') (Next = '/' | Last = '?') (Heading = '<h' | Header = '<h' | Paragraph = '<p') 
+		= {Esc} $2 '\c' $3 {Enter} $1 i t;
 
 
 
@@ -107,16 +110,6 @@ Grab Everything = {Alt+e} s  {Enter} Wait(100) {Alt+e} c {Enter} Wait(100) {Alt+
 1..20 Spaces = Repeat($1, ' ');
 
 
-Do Ultisnips = {Esc} ':UltiSnipsEdit'{Enter};
-
-
-(Next = 'j' | Last = 'k') Tag = {Ctrl+$1};
-Start Snippet= {Esc} i 'snippet  {Enter} {Enter}endsnippet' {Esc} {Up_2} A;
-Start (
-	D3 = 'd3_template' | Code = 'D3_code_wrapper'
-| 	form | 'form text'  | 'form button' | 'form select'
-) = {Esc} i $1  Wait(100)  {Tab};
-
 
 
 Delete Line = 'dd';
@@ -127,16 +120,32 @@ Delete <numbers> Lines = $1 'dd';
 
 # --- HTML and Bootstrap commands (until I'm sure I can get Ultisnips to work) ------------
 Next One = {Esc} A;
-Start (Heading | Header) 1..4 = '<h' $2 '></h' $2 '>'   Wait(100) {Left_5};
+Start (Heading | Header) 1..5 = '<h' $2 '></h' $2 '>'   Wait(100) {Left_5};
+Wrap [In] (Heading | Header) 1..5 = {Esc} I '<h' $2 '>' {Esc} A '</h' $2 '>' {Esc};
+Start Para = {Esc} I '<p>';
+Stop Para = {Esc} A '</p>' {Esc};
+
+Paste Image = {Esc} a ' <img align=right hspace="7"  src="' {Esc} p a '" />';		# Might also add: width="200"
+
 Start Div (id | class) = '<div ' $1 '= "">' Wait(100) {Left_2};
 Stop Div = '</div>' {Enter};
 Start Columns = {Esc} i  Wait(100) '<div class="container">{Enter}<div class="row">{Enter}'
 		 {Enter} '</div>' {Enter}  '</div>'  {Esc} {Up_3}   Wait(100) A;
 Start Column 1..12 = {Esc} a '<div class="col-md-' $1 '">' {Enter} '</div>'{Enter}  {Esc} {Up_2} Wait(100) A;
 
-# Paste Image = {Esc} a' <img align=right hspace="7" width="200" src="' {Ctrl+v} '" />';
-Paste Image = {Esc} a ' <img align=right hspace="7"  src="' {Esc} p a '" />';
 
+
+
+
+# --- Ultisnips (if I can get it working on all PCs) ------------------------
+Do Ultisnips = {Esc} ':UltiSnipsEdit'{Enter};
+
+(Next = 'j' | Last = 'k') Tag = {Ctrl+$1};
+Start Snippet= {Esc} i 'snippet  {Enter} {Enter}endsnippet' {Esc} {Up_2} A;
+Start (
+	D3 = 'd3_template' | Code = 'D3_code_wrapper'
+| 	form | 'form text'  | 'form button' | 'form select'
+) = {Esc} i $1  Wait(100)  {Tab};
 
 
 
@@ -159,3 +168,4 @@ Paste Image = {Esc} a ' <img align=right hspace="7"  src="' {Esc} p a '" />';
 
 # Commands I'm not sure about
 # H,M,L: top, middle, and bottom of screen
+
