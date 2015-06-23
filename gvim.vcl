@@ -39,7 +39,7 @@ Save As = {Alt+f} a;
 Go (Quit = 'quit' | Close = 'close' | 'Close without saving' = 'close!'  | Set = 'set') = ':' $1 {Enter};
 [Go] Quit without Saving = {Esc}  Wait(100) ':quit!' {Enter};
 
-Save and Reload = {Esc}  Wait(100) ':w' {Enter} Wait(100)  SendSystemKeys({Alt+Tab}) Wait(100) {Alt+r};
+Save and Reload = {Esc}  Wait(100) ':w' {Enter} Wait(100)  SendSystemKeys({Alt+Tab}) Wait(100) {Ctrl+r};
 
 
 # --- Basic Navigation ---------------
@@ -121,14 +121,17 @@ Delete <numbers> Lines = $1 'dd';
 # --- HTML and Bootstrap commands (until I'm sure I can get Ultisnips to work) ------------
 Next One = {Esc} A;
 Start (Heading | Header) 1..5 = '<h' $2 '></h' $2 '>'   Wait(100) {Left_5};
-Wrap [In] (Heading | Header) 1..5 = {Esc} I '<h' $2 '>' {Esc} A '</h' $2 '>' {Esc};
+Wrap [In] (Heading | Header) 1..5 = {Esc} I '<h' $2 '>' {Esc} A '</h' $2 '>' {Esc} Wait(100) {Enter};
+Wrap [in] (para = 'p' | item = 'li') = {Esc} I '<' $1 '>' {Esc} A '</' $1 '>' {Esc}  Wait(100) {Enter};
 Start Para = {Esc} I '<p>';
 Stop Para = {Esc} A '</p>' {Esc};
+Start List = {Esc} i '<ul>' {Enter} {Esc};
+Stop List = {Esc} i '</ul>' {Esc};
 
 Paste Image = {Esc} a ' <img align=right hspace="7"  src="' {Esc} p a '" />';		# Might also add: width="200"
 
-Start Div (id | class) = '<div ' $1 '= "">' Wait(100) {Left_2};
-Stop Div = '</div>' {Enter};
+Start Div (id | class) = {Esc} a '<div ' $1 '= "">' Wait(100) {Left_2};
+Stop Div = {Esc} A '</div>' ;
 Start Columns = {Esc} i  Wait(100) '<div class="container">{Enter}<div class="row">{Enter}'
 		 {Enter} '</div>' {Enter}  '</div>'  {Esc} {Up_3}   Wait(100) A;
 Start Column 1..12 = {Esc} a '<div class="col-md-' $1 '">' {Enter} '</div>'{Enter}  {Esc} {Up_2} Wait(100) A;
