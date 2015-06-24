@@ -4,11 +4,13 @@ set nocompatible
 
 set lines=45 columns=160
 
-" Make the pathogen plugin manager work
-execute pathogen#infect()
-syntax on
+" Make the pathogen plugin manager work, including  turning off & on detecting file type (e.g., a Python file)
+filetype off
+filetype plugin indent off
+call pathogen#infect()
+call pathogen#helptags()
 filetype plugin indent on
-
+syntax on
 
 " Set the fonts & colors the way I like:  DejaVu font, sprinkles' light colorscheme
 set guifont=DejaVu_Sans_Mono:h9:cANSI
@@ -31,14 +33,16 @@ filetype plugin indent on
 " Show line numbers
 set number
 
-" Allow hidden buffers, don't limit to 1 file per window/split
-set hidden
-
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
 
-filetype off                  " required
+" - vim-session commands --------
+let g:session_autosave='yes'		" Automatically save the default session when quitting
+let g:session_autoload='yes'		" Automatically load the default session
 
 
 
+" ---- THINGS TO RESEARCH ---------------
+" Turns on matchit, which allows you to use the % to jump between matching HTML tags (among other things)
+" runtime macros/matchit.vim   " NOTE: doesn't seem to be working, not sure why
